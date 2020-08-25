@@ -6,7 +6,7 @@ def addition(varIn):
     k=int(varIn[0])-int(varIn[1])
   return str(k).rjust(len(total_slashes(varIn)))
 
-def bottom(varIn):
+def results(varIn):
   varOut=""
   for i in range(len(varIn)):
     if i!=0:
@@ -40,15 +40,15 @@ def down(varIn):
     varOut=varIn[1]
   return varOut
 
-def front(v_in):
-  v_out=""
-  if len(v_in[0])>len(v_in[1]):
-    v_out=v_in[0]
+def front(varIn):
+  varOut=""
+  if len(varIn[0])>len(varIn[1]):
+    varOut=varIn[0]
   else:
-    v_out=v_in[0].rjust(len(v_in[1]))
-  return v_out
+    varOut=varIn[0].rjust(len(varIn[1]))
+  return varOut
 
-def top(varIn):
+def adding1(varIn):
   final=""
   for i in range(len(varIn)):
     if i==0:
@@ -57,7 +57,7 @@ def top(varIn):
       final+="      "+front(varIn[i])
   return final
   
-def middle(varIn):
+def adding2(varIn):
   varOut=""
   for i in range(len(varIn)):
     if i==0:
@@ -67,7 +67,7 @@ def middle(varIn):
   return varOut
 
 # Check if only numbers
-def containsDigit(varIn):
+def isNumber(varIn):
   varIn[0]=varIn[0].strip()
   varIn[1]=varIn[1].strip()
   for i in range(len(varIn)):
@@ -81,9 +81,10 @@ def containsDigit(varIn):
   return True
 
 #-----------------#
-# Main DEF        #
+#    Main DEF     #
 #-----------------#
 def arithmetic_arranger(problems,showResult=False):
+    # Define final array with adding1, adding2 and operand
     final=[]
     if len(problems)>5:
       return "Error: Too many problems."
@@ -93,7 +94,7 @@ def arithmetic_arranger(problems,showResult=False):
       else:
         if '+' in i:
           l=i.split('+')
-          if not containsDigit(l):
+          if not isNumber(l):
             return "Error: Numbers must only contain digits."
           else:
             if len(l[0])>4 or len(l[1])>4:
@@ -103,7 +104,7 @@ def arithmetic_arranger(problems,showResult=False):
               final.append(l)
         if '-' in i:
           l=i.split('-')
-          if not containsDigit(l):
+          if not isNumber(l):
             return "Error: Numbers must only contain digits."
           else:
             if len(l[0])>4 or len(l[1])>4:
@@ -114,7 +115,7 @@ def arithmetic_arranger(problems,showResult=False):
 
     # Including results
     if showResult:
-      return (top(final)+"\n"+middle(final)+"\n"+slashes(final)+"\n"+bottom(final))  
+      return (adding1(final)+"\n"+adding2(final)+"\n"+slashes(final)+"\n"+results(final))  
     # Results not included  
     else:
-      return top(final)+"\n"+middle(final)+"\n"+slashes(final)
+      return adding1(final)+"\n"+adding2(final)+"\n"+slashes(final)
